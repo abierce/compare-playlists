@@ -1,0 +1,43 @@
+# --- Configuration ---
+$musicFolder = "C:\path\to\your\musica"
+$xspfFile = "C:\path\to\your\playlist.xspf"
+
+# 1. Get all file paths in the folder and its subfolders
+#    -Recurse: search in subfolders
+#    -File: only get files
+$folderFiles = Get-ChildItem -Path $musicFolder -Recurse -File | ForEach-Object { $_.FullName }
+
+# 2. Parse the XSPF file to get the list of playlist files
+[xml]$xspfContent = Get-Content -Path $xspfFile
+
+# Select the location tags and extract their text content
+$playlistLocations = $xspfContent.playlist.trackList.track.location
+
+# 3. Process the playlist paths to make them comparable
+$playlistFiles = New-Object System.Collections.Generic.HashSet[string]
+foreach ($location in $playlistLocations) {
+    # Remove "file:///" prefix and replace URL-encoded spaces
+    $cleanedPath = $location -replace "file:///", ""
+    $cleanedPath = $cleanedPath -replace "%20", " "
+
+    # Convert to the absolute path for comparison
+    $fullPath = [System.IO.Path]::GetFullPath($cleanedPath)
+
+    # Add the file to a hash set for efficient lookup
+    [void]$playlistFiles.Add($fullPath)
+}
+
+# 4. Compare the lists and find files not in the playlist
+Write-Host "The following files are in the music folder but not in the playlist:"
+$isMatch = $false
+foreach ($file in $folderFiles) {
+    # Check if the file from the folder exists in the playlist hash set
+    if (-not $playlistFiles.Contains($file)) {
+        Write-Host "- $file"
+        $isMatch = $true
+    }
+}
+
+if (-not $isMatch) {
+    Write-Host "All files in the music folder are included in the playlist."
+}
