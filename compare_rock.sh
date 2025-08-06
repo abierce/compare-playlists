@@ -15,11 +15,25 @@ XSPF_FILE="$1"
 # Extract the directory of the playlist file
 MUSIC_FOLDER=$(dirname "$XSPF_FILE")
 
+# List of folders to exclude
+EXCLUDE_FOLDERS="Clasica|Discogs|Electronica|Española|Films|Game|Jazz|Medieval|Relax|Sould|v|Varios"
+
+# Construct the find command's exclusion part
+EXCLUSION_PATTERN=""
+for folder in ${EXCLUDE_FOLDERS//|/ }; do
+    # Use -path and -prune to prevent descending into the folders
+    EXCLUSION_PATTERN+=" -path \"$MUSIC_FOLDER/$folder\" -prune -o"
+done
+
 echo "Comparing music in: $MUSIC_FOLDER"
 echo "Using playlist file: $XSPF_FILE"
+echo "Excluding folders: ${EXCLUDE_FOLDERS//|/, }"
 
-# 1. List all files in the music folder and subfolders, excluding .xspf files
-find "$MUSIC_FOLDER" -type f ! -name '*.xspf' -print0 | sort -z > /tmp/folder_files.txt
+# 1. List all files in the music folder and subfolders, excluding .xspf files and specific folders
+#    We use `eval` to run the dynamically constructed `find` command.
+#    `! -name "*.xspf"` excludes xspf files.
+#    The `!` at the beginning of the `find` expression is crucial here.
+eval find \""$MUSIC_FOLDER"\" $EXCLUSION_PATTERN -type f ! -name "*.xspf" -print0 | sort -z > /tmp/folder_files.txt
 
 # 2. Extract file paths from the XSPF file
 grep -oP '<location>\K[^<]+' "$XSPF_FILE" \
