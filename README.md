@@ -30,8 +30,6 @@ python -X utf8 .\compare_playlists_rock.py "E:\Musica\Rock50-00_5.0.xspf" |
 
 ## Run on WSL / Linux
 
-#Run it in WSL/Linux
-
 ```bash
 # 0) Open a *new* WSL terminal (locale should be UTF-8, e.g. es_ES.UTF-8)
 # 1) Go to the same project folder (under /mnt)
