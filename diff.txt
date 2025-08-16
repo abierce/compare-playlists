@@ -1,0 +1,18 @@
+--- missing_linux.txt	2025-08-16 16:34:16.274258300 +0200
++++ missing_linux2.txt	2025-08-16 16:24:57.441717400 +0200
+@@ -804,12 +804,12 @@
+ - 80s/Phil Collins (1998) Hits/02 - True Colors.flac   (2023-07-12 01:56)
+ - 60s/Harry Nilsson - Everybody's Talkin'.mp3   (2023-07-08 05:36)
+ - 50s/Elvis Presley - Always On My Mind.flac   (2023-07-08 05:35)
+-- Hard/Skid Row - I Remember You.flac   (2023-07-03 05:15)
+ - 70s80s - PopRock/Skid Row - I Remember You.flac   (2023-07-03 05:15)
+-- 70s80s - PopRock/Skid Row - Youth Gone Wild.flac   (2023-07-03 05:15)
++- Hard/Skid Row - I Remember You.flac   (2023-07-03 05:15)
+ - Hard/Skid Row - Youth Gone Wild.flac   (2023-07-03 05:15)
+-- Hard/Skid Row - 18 and Life.flac   (2023-07-03 05:15)
++- 70s80s - PopRock/Skid Row - Youth Gone Wild.flac   (2023-07-03 05:15)
+ - 70s80s - PopRock/Skid Row - 18 and Life.flac   (2023-07-03 05:15)
++- Hard/Skid Row - 18 and Life.flac   (2023-07-03 05:15)
+ - 70s80s - PopRock/Joe Cocker - 2003 - The Ultimate Collection 1968-2003 CD1/14 Don't You Love Me Anymore.flac   (2023-06-26 14:37)
+ - 70s80s - PopRock/Joe Cocker - 2003 - The Ultimate Collection 1968-2003 CD1/15 She Came in Through the Bathroom Window.flac   (2023-06-26 14:37)
+ - 70s80s - PopRock/Joe Cocker - 2003 - The Ultimate Collection 1968-2003 CD1/13 Night Calls.flac   (2023-06-26 14:22)

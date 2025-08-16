@@ -25,6 +25,8 @@ cd C:\Users\Loco_\ReactProjects\compare_playlists_python
 
 # 2) Run the script and send the list to UTF-8 text
 python -X utf8 .\compare_playlists_rock.py "E:\Musica\Rock50-00_5.0.xspf" | Out-File -Encoding utf8 missing_windows.txt
+# Generate the Windows file without BOM and with Unix line-ends
+python -X utf8 .\compare_playlists_rock.py "E:\Musica\Rock50-00_5.0.xspf" > missing_windows.txt
 ```
 
 ## Run on WSL / Linux

@@ -73,11 +73,15 @@ def get_files_in_folder(folder_path, exclude_extensions=None, exclude_folders=No
         exclude_folders = []
 
     ex_ext = [e.lower() for e in exclude_extensions]
-    ex_dir = [d.lower() for d in exclude_folders]
+    #ex_dir = [d.lower() for d in exclude_folders]
+    # build the NFC-normalised exclusion list 
+    ex_dir = [unicodedata.normalize('NFC', d).lower() for d in exclude_folders]
 
     all_files = set()
     for root, dirs, files in os.walk(folder_path):
-        dirs[:] = [d for d in dirs if d.lower() not in ex_dir]
+        #dirs[:] = [d for d in dirs if d.lower() not in ex_dir]
+        # normalise each directory name BEFORE testing
+        dirs[:] = [d for d in dirs if unicodedata.normalize('NFC', d).lower() not in ex_dir]
         for name in files:
             _, ext = os.path.splitext(name)
             if ext.lower() in ex_ext:
@@ -164,7 +168,7 @@ if missing:
             rel = os.path.relpath(p, music_folder)
         except ValueError:
             rel = p
-
+        rel = rel.replace(os.sep, "/") # use forward slashes for consistency
         mtime = os.path.getmtime(p)                    # seconds since epoch
         timestamp = time.strftime("%Y-%m-%d %H:%M",    # human-readable
                                   time.localtime(mtime))
